@@ -590,9 +590,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b25df697fa58a49b7ccc2e224597a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitbox: {fileID: 1645526312}
   rb: {fileID: 1645526317}
   speed: 5
   player: {fileID: 1682505315}
+  jumpPower: 7
 --- !u!114 &1645526319
 MonoBehaviour:
   m_ObjectHideFlags: 0
