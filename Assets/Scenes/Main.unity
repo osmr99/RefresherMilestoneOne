@@ -276,6 +276,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 9e3ea95b7c8e2b745bc9281988bcb13f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a939fa900a8b4354db1fd71ea523dccf, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e3ea95b7c8e2b745bc9281988bcb13f, type: 3}
 --- !u!4 &244434365 stripped
@@ -766,8 +770,10 @@ MonoBehaviour:
   hitbox: {fileID: 1645526312}
   rb: {fileID: 1645526317}
   speed: 5
-  player: {fileID: 1682505315}
   jumpPower: 7
+  sprintMultiplier: 1.5
+  player: {fileID: 1682505315}
+  animator: {fileID: 5866666021909216657, guid: 9e3ea95b7c8e2b745bc9281988bcb13f, type: 3}
 --- !u!114 &1645526319
 MonoBehaviour:
   m_ObjectHideFlags: 0

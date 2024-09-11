@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] int jumpPower;
     [SerializeField] float sprintMultiplier;
     [SerializeField] GameObject player;
+    [SerializeField] Animator animator;
     Vector2 movement;
     bool isSprinting = false;
     float rotation;
@@ -18,13 +19,18 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (movement.x == 0 && movement.y == 0)
+            animator.SetFloat("moveSpeed", 0);
+        else
+        {
+            animator.SetFloat("moveSpeed", 1);
+        }    
     }
 
     private void FixedUpdate()
@@ -35,15 +41,16 @@ public class Player : MonoBehaviour
 
     void Movement()
     {
+        //animator.SetFloat("moveSpeed", rb.velocity.x);
         if (isSprinting)
         {
             rb.velocity = new Vector3(movement.x * sprintMultiplier, rb.velocity.y, movement.y);
-            Debug.Log("Sprinting");
+            //Debug.Log("Sprinting");
         }
         else
         {
             rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.y);
-            Debug.Log("Not sprinting");
+            //Debug.Log("Not sprinting");
         }
         Vector3 move = transform.right * movement.x + transform.forward * movement.y;
 
