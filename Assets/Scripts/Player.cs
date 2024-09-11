@@ -8,12 +8,12 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject hitbox;
     [SerializeField] Rigidbody rb;
     [SerializeField] int speed;
-    Vector2 movement;
+    [SerializeField] int jumpPower;
+    [SerializeField] float sprintMultiplier;
     [SerializeField] GameObject player;
+    Vector2 movement;
     bool isSprinting = false;
     float rotation;
-    [SerializeField] int jumpPower;
-
 
     // Start is called before the first frame update
     void Start()
@@ -35,12 +35,22 @@ public class Player : MonoBehaviour
 
     void Movement()
     {
-        rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.y);
+        if (isSprinting)
+        {
+            rb.velocity = new Vector3(movement.x * sprintMultiplier, rb.velocity.y, movement.y);
+            Debug.Log("Sprinting");
+        }
+        else
+        {
+            rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.y);
+            Debug.Log("Not sprinting");
+        }
         Vector3 move = transform.right * movement.x + transform.forward * movement.y;
+
         //var velocity = move * speed;
         //velocity.y = rb.velocity.y;
         //rb.velocity = velocity;
-        
+
     }
 
     void Look()
@@ -76,7 +86,7 @@ public class Player : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        if(hitbox.transform.localPosition.y <= 0.315f)
+        if(hitbox.transform.localPosition.y >= 0.3145f && hitbox.transform.localPosition.y <= 0.315f)
             rb.AddForce(0, jumpPower, 0, ForceMode.Impulse);
     }
 }
