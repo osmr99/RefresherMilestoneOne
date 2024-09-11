@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] Animator animator;
     Vector2 movement;
+    bool onGround = false;
     bool isSprinting = false;
     float rotation;
 
@@ -28,9 +29,7 @@ public class Player : MonoBehaviour
         if (movement.x == 0 && movement.y == 0)
             animator.SetFloat("moveSpeed", 0);
         else
-        {
             animator.SetFloat("moveSpeed", 1);
-        }    
     }
 
     private void FixedUpdate()
@@ -44,7 +43,7 @@ public class Player : MonoBehaviour
         //animator.SetFloat("moveSpeed", rb.velocity.x);
         if (isSprinting)
         {
-            rb.velocity = new Vector3(movement.x * sprintMultiplier, rb.velocity.y, movement.y);
+            rb.velocity = new Vector3(movement.x * sprintMultiplier, rb.velocity.y, movement.y * sprintMultiplier);
             //Debug.Log("Sprinting");
         }
         else
@@ -93,7 +92,20 @@ public class Player : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        if(hitbox.transform.localPosition.y >= 0.3145f && hitbox.transform.localPosition.y <= 0.315f)
+        //if(hitbox.transform.localPosition.y >= 0.3145f && hitbox.transform.localPosition.y <= 0.315f)
+        if(onGround)
             rb.AddForce(0, jumpPower, 0, ForceMode.Impulse);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "Ground")
+            onGround = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.name == "Ground")
+            onGround = false;
     }
 }
