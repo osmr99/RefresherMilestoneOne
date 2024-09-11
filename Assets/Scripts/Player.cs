@@ -31,7 +31,18 @@ public class Player : MonoBehaviour
         if (movement.x == 0 && movement.y == 0)
             animator.SetFloat("moveSpeed", 0);
         else
-            animator.SetFloat("moveSpeed", 1);
+        {
+            if (isSprinting)
+                animator.SetFloat("moveSpeed", 2);
+            else
+                animator.SetFloat("moveSpeed", 1);
+        }
+            
+
+        if (hitbox.transform.localPosition.y <= -0.45f)
+        {
+            animator.SetBool("falling", true);
+        }
     }
 
     private void FixedUpdate()
@@ -134,10 +145,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.name == "Ground")
         {
             onGround = false;
-            if(hitbox.transform.localPosition.y <= -0.34f)
-            {
-                animator.SetBool("falling", true);
-            }
+            animator.SetBool("onGround", false);
         }
             
     }
