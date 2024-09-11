@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        player.transform.localPosition = new Vector3(0, 0.32f, 0);
+
         if (movement.x == 0 && movement.y == 0)
             animator.SetFloat("moveSpeed", 0);
         else
@@ -94,18 +96,49 @@ public class Player : MonoBehaviour
     {
         //if(hitbox.transform.localPosition.y >= 0.3145f && hitbox.transform.localPosition.y <= 0.315f)
         if(onGround)
+        {
+            onGround = false;
+            animator.SetBool("onGround", false);
             rb.AddForce(0, jumpPower, 0, ForceMode.Impulse);
+            if (movement.x == 0 && movement.y == 0)
+            {
+                animator.SetBool("standingJump", true);
+                animator.SetBool("fastJump", false);
+            }
+            else
+            {
+                animator.SetBool("fastJump", true);
+                animator.SetBool("standingJump", false);
+            }
+
+
+        }
+            
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "Ground")
+        {
             onGround = true;
+            animator.SetBool("onGround", true);
+            animator.SetBool("falling", false);
+        }
+            
+        if (collision.gameObject.name == "Respawn")
+            hitbox.transform.localPosition = new Vector3(0, 2, 0);
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.name == "Ground")
+        {
             onGround = false;
+            if(hitbox.transform.localPosition.y <= -0.34f)
+            {
+                animator.SetBool("falling", true);
+            }
+        }
+            
     }
 }
