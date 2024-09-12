@@ -129,7 +129,19 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Ground")
+        if (collision.gameObject.name == "Ground 1")
+        {
+            onGround = true;
+            animator.SetBool("onGround", true);
+            animator.SetBool("falling", false);
+        }
+        else if(collision.gameObject.name == "Ground 2")
+        {
+            onGround = true;
+            animator.SetBool("onGround", true);
+            animator.SetBool("falling", false);
+        }
+        else if(collision.gameObject.name == "Ground 3")
         {
             onGround = true;
             animator.SetBool("onGround", true);
@@ -142,11 +154,8 @@ public class Player : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.name == "Ground")
-        {
-            onGround = false;
-            animator.SetBool("onGround", false);
-        }
+        //onGround = false;
+        //animator.SetBool("onGround", false);
             
     }
 }
