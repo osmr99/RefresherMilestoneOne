@@ -155,7 +155,6 @@ public class Player : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         //onGround = false;
-        //animator.SetBool("onGround", false);
-            
+        //animator.SetBool("onGround", false); 
     }
 }
