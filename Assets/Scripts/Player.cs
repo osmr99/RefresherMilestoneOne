@@ -7,9 +7,9 @@ public class Player : MonoBehaviour
     // Default gravity from Project Settings: -9.81
     [SerializeField] GameObject hitbox;
     [SerializeField] Rigidbody rb;
-    [SerializeField] int speed;
-    [SerializeField] int jumpPower;
-    [SerializeField] float sprintMultiplier;
+    int speed = 2;
+    int jumpPower = 7;
+    float sprintMultiplier = 3;
     [SerializeField] GameObject player;
     [SerializeField] Animator animator;
     Vector2 movement;
@@ -37,6 +37,11 @@ public class Player : MonoBehaviour
             else
                 animator.SetFloat("moveSpeed", 1);
         }
+
+        //if (Keyboard.current.zKey.wasPressedThisFrame)
+        //{
+            //hitbox.transform.localPosition = new Vector3(0, 2, 27);
+        //}
             
 
         if (hitbox.transform.localPosition.y <= -0.45f)
@@ -105,7 +110,6 @@ public class Player : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        //if(hitbox.transform.localPosition.y >= 0.3145f && hitbox.transform.localPosition.y <= 0.315f)
         if(onGround)
         {
             onGround = false;
@@ -147,14 +151,19 @@ public class Player : MonoBehaviour
             animator.SetBool("onGround", true);
             animator.SetBool("falling", false);
         }
-            
+
         if (collision.gameObject.name == "Respawn")
-            hitbox.transform.localPosition = new Vector3(0, 2, 0);
+            Respawn();
     }
 
     private void OnCollisionExit(Collision collision)
     {
         //onGround = false;
         //animator.SetBool("onGround", false); 
+    }
+
+    public void Respawn()
+    {
+        hitbox.transform.localPosition = new Vector3(0, 2, 0);
     }
 }

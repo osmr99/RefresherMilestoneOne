@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class HealthLogic : MonoBehaviour
 {
+    [SerializeField] Player player;
     [SerializeField] PlayerStats currentHealth;
     [SerializeField] PlayerStats maxHealth;
     [SerializeField] Image healthBar;
@@ -12,12 +13,16 @@ public class HealthLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
+        currentHealth.amount = maxHealth.amount;
     }
 
     // Update is called once per frame
     void Update()
     {
-        healthBar.fillAmount = (float)currentHealth.amount / maxHealth.amount;
+        healthBar.fillAmount = (float)currentHealth.amount / (float)maxHealth.amount;
+        if(currentHealth.amount <= 0)
+        {
+            player.Respawn();
+        }
     }
 }
